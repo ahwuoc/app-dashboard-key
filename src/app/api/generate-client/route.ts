@@ -13,7 +13,6 @@ export async function POST(request: Request) {
             '127.0.0.1';
 
         await connectDB();
-        
         await RequestLog.create({ ip, endpoint: '/generate-client' });
 
         const oneMinuteAgo = new Date(Date.now() - 60000);
@@ -41,18 +40,8 @@ export async function POST(request: Request) {
             requestId = crypto.randomBytes(16).toString('hex');
             await KeyRequest.create({ requestId, ip, status: 'PENDING' });
         }
-
-        const origin = process.env.NEXT_PUBLIC_APP_URL || 'http://146.190.88.68:3000';
-
-        const MY_STATIC_SHORTLINK = "https://link4m.com/go/wneiO";
-
-        let shortLink = MY_STATIC_SHORTLINK;
-        const isLocal = origin.includes('localhost') || origin.includes('127.0.0.1');
-
-        if (isLocal) {
-            shortLink = `${origin}/verify-key?id=${requestId}`;
-        }
-
+        const MY_STATIC_SHORTLINK = process.env.SHORTLINK || "https://link4m.com/go/wneiO";
+        const shortLink = MY_STATIC_SHORTLINK;
         return NextResponse.json({
             success: true,
             shortLink: shortLink,
