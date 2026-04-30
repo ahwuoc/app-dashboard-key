@@ -10,7 +10,8 @@ import mongoose from 'mongoose';
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
-export const maxDuration = 720;
+export const maxDuration = 300;
+
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
