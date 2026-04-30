@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
-  title: "FutureWeb | Premium Next.js App",
-  description: "Experience the future of the web with Next.js and Bun.",
+  title: "FB Bot Pro | Hệ Thống Quản Lý Bản Quyền",
+  description: "Trang quản lý và xác thực key bản quyền cho phần mềm FB Bot Pro.",
 };
 
 export default function RootLayout({
@@ -23,8 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html lang="vi" className={outfit.variable}>
+      <body className="antialiased">
+        {children}
+      </body>
     </html>
   );
 }

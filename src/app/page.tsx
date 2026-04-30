@@ -2,67 +2,35 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <main>
-      <div className="hero-bg-overlay" />
-      <div className="bg-gradient" />
-      
-      <section className="container" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-        <div className="animate-fade-in" style={{ maxWidth: '800px' }}>
-          <h1>Future-Ready Next.js Powered by Bun</h1>
-          <p>
-            Experience lightning-fast development and performance with the next generation 
-            of the web. Built with visual excellence and rich aesthetics at its core.
+    <main className="relative min-h-screen">
+      <div className="hero-overlay" />
+      <div className="bg-mesh" />
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 min-h-screen flex items-center pt-20">
+        <div className="animate-fade-in max-w-4xl">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tighter premium-gradient-text mb-6">
+            Lấy Key Bot <br /> Nhanh - Xịn - Chuẩn
+          </h1>
+          <p className="text-xl md:text-2xl text-white/60 mb-10 max-w-2xl leading-relaxed">
+            Hệ thống quản lý và cấp key bản quyền FB Bot Pro. Thiết kế để tối ưu hóa trải nghiệm và hiệu suất của bạn.
           </p>
-          <div style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem' }}>
-            <a href="/dashboard" className="premium-button">
-              Manage Keys
+          <div className="flex flex-wrap gap-4">
+            <a href="/dashboard" className="premium-button text-white">
+              Quản Lý Key
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.16666 10H15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M10 4.16666L15.8333 10L10 15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M4.16666 10H15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M10 4.16666L15.8333 10L10 15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-            <button className="glass-card" style={{ padding: '0.8rem 2rem', borderRadius: '9999px', fontSize: '1rem', cursor: 'pointer', color: 'white', display: 'flex', alignItems: 'center' }}>
-              Documentation
+            <button className="glass-card px-8 py-4 text-white hover:bg-white/10 transition-all font-semibold">
+              Tài Liệu Hướng Dẫn
             </button>
           </div>
         </div>
       </section>
-
-      <section className="container" style={{ paddingBottom: '8rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '1rem' }}>Engineered for Speed</h2>
-          <p style={{ margin: '0 auto' }}>Leveraging Bun's high-performance runtime to deliver unmatched user experiences.</p>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-          <div className="glass-card">
-            <div style={{ width: '48px', height: '48px', backgroundColor: 'rgba(138, 43, 226, 0.2)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', color: '#8a2be2', fontSize: '1.5rem' }}>
-              ⚡
-            </div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Lightning Fast</h3>
-            <p style={{ fontSize: '1rem' }}>Bun's runtime and bundler provide sub-second startup and build times.</p>
-          </div>
-
-          <div className="glass-card">
-            <div style={{ width: '48px', height: '48px', backgroundColor: 'rgba(0, 255, 255, 0.2)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', color: '#00ffff', fontSize: '1.5rem' }}>
-              🎨
-            </div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Rich Aesthetics</h3>
-            <p style={{ fontSize: '1rem' }}>Carefully curated design tokens and components for a premium feel.</p>
-          </div>
-
-          <div className="glass-card">
-            <div style={{ width: '48px', height: '48px', backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', fontSize: '1.5rem' }}>
-              💎
-            </div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Modern Stack</h3>
-            <p style={{ fontSize: '1rem' }}>The latest Next.js features with App Router and Server Components.</p>
-          </div>
-        </div>
-      </section>
-
-      <footer className="container" style={{ padding: '4rem 2rem', borderTop: '1px solid var(--glass-border)', textAlign: 'center' }}>
-        <p style={{ fontSize: '0.875rem', margin: '0 auto' }}>© 2026 FutureWeb Inc. Built with Next.js & Bun.</p>
+      <footer className="container mx-auto px-6 py-20 border-t border-white/10 text-center">
+        <p className="text-white/30 text-sm tracking-widest uppercase font-bold">© 2026 FB Bot Pro Service. Powered by Antigravity.</p>
       </footer>
     </main>
   );
