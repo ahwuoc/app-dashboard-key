@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import db from '../../lib/db';
+import connectDB from '@/lib/mongodb';
+import { KeyRequest, Key } from '@/lib/models';
 import crypto from 'crypto';
 import { headers } from 'next/headers';
 
@@ -23,11 +24,22 @@ export default async function VerifyKeyPage({
 
   let request: any;
 
-  if (requestId) {
-    request = db.prepare("SELECT * FROM key_requests WHERE requestId = ? AND status = 'PENDING'").get(requestId);
-  } else {
-    request = db.prepare("SELECT * FROM key_requests WHERE ip = ? AND status = 'PENDING' AND createdAt > datetime('now', '-30 minutes') ORDER BY createdAt DESC LIMIT 1").get(userIp);
-    if (request) requestId = request.requestId;
+  try {
+    await connectDB();
+    if (requestId) {
+      request = await KeyRequest.findOne({ requestId, status: 'PENDING' });
+    } else {
+      const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
+      request = await KeyRequest.findOne({ 
+        ip: userIp, 
+        status: 'PENDING', 
+        createdAt: { $gt: thirtyMinutesAgo } 
+      }).sort({ createdAt: -1 });
+      
+      if (request) requestId = request.requestId;
+    }
+  } catch (err) {
+    console.error("Database error in verify-key:", err);
   }
 
   if (!request) {
@@ -57,11 +69,15 @@ export default async function VerifyKeyPage({
   expiresAt.setDate(expiresAt.getDate() + 2);
 
   try {
-    const runTransaction = db.transaction(() => {
-      db.prepare("UPDATE key_requests SET status = 'COMPLETED' WHERE requestId = ?").run(requestId);
-      db.prepare('INSERT INTO keys (key, note, expiresAt, ip) VALUES (?, ?, ?, ?)').run(newKey, 'Trial Key (2 days)', expiresAt.toISOString(), request.ip);
+    // Update request and create key
+    await KeyRequest.findOneAndUpdate({ requestId }, { status: 'COMPLETED' });
+    await Key.create({
+        key: newKey,
+        note: 'Trial Key (2 days)',
+        expiresAt: expiresAt,
+        ip: request.ip
     });
-    runTransaction();
+
 
     return (
       <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
